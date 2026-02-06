@@ -49,9 +49,6 @@ export function AboutSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-center flex flex-col justify-center py-4"
           >
-            <h3 className="font-display text-2xl md:text-3xl text-foreground mb-6">
-              Tradição e <span className="text-gradient-ember">Paixão</span>
-            </h3>
             <p className="font-body text-muted-foreground leading-relaxed mb-4">
               Nascemos da vontade de fazer diferente. No Modesto, cada hambúrguer 
               é preparado na parrilla, com o respeito que a carne merece e o sabor 

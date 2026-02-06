@@ -41,38 +41,21 @@ export function HeroSection() {
       
       {/* Content - Centered */}
       <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
-        {/* Logo Container with ember glow effect */}
+        {/* Logo - Clean and prominent */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative inline-block mb-8"
+          className="mb-10"
         >
-          {/* Outer glow ring */}
-          <motion.div
-            className="absolute -inset-4 rounded-2xl opacity-60"
+          <img 
+            src={logoModesto} 
+            alt="Modesto Hamburgueria" 
+            className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-2xl shadow-2xl"
             style={{
-              background: "radial-gradient(circle, hsl(var(--ember) / 0.3), transparent 70%)",
-              filter: "blur(20px)",
-            }}
-            animate={{
-              opacity: [0.4, 0.7, 0.4],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
+              boxShadow: "0 0 60px hsl(var(--ember) / 0.3), 0 20px 40px rgba(0,0,0,0.4)",
             }}
           />
-          
-          {/* Logo box */}
-          <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden shadow-2xl">
-            <img 
-              src={logoModesto} 
-              alt="Modesto Hamburgueria" 
-              className="w-full h-full object-cover"
-            />
-          </div>
         </motion.div>
 
         {/* Tagline */}
