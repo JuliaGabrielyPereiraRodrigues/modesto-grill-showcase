@@ -1,7 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ChevronUp, Instagram, Flame } from "lucide-react";
-import footerGrillTexture from "@/assets/footer-grill-texture.jpg";
 
 export function Footer() {
   const ref = useRef(null);
@@ -12,36 +11,9 @@ export function Footer() {
   };
 
   return (
-    <footer ref={ref} className="relative overflow-hidden">
-      {/* Grill Texture Header */}
-      <div className="relative h-32 md:h-48 overflow-hidden">
-        <img
-          src={footerGrillTexture}
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        {/* Gradient overlay for smooth transition */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card" />
-        
-        {/* Glowing ember line at bottom */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-1"
-          style={{
-            background: "linear-gradient(90deg, transparent 0%, hsl(var(--ember)) 20%, hsl(var(--parrilla-orange)) 50%, hsl(var(--ember)) 80%, transparent 100%)",
-          }}
-          animate={{
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
+    <footer ref={ref} className="relative overflow-hidden bg-card">
       {/* Main Footer Content */}
-      <div className="bg-card py-16 md:py-20">
+      <div className="py-16 md:py-20">
         <div className="section-container text-center">
           {/* Scroll to Top Arrow */}
           <motion.button
