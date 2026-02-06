@@ -65,7 +65,7 @@ export function HighlightsSection() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Side - Ingredients Panel */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -80,7 +80,7 @@ export function HighlightsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 30 }}
                 transition={{ duration: 0.4 }}
-                className="space-y-8"
+                className="space-y-6"
               >
                 {/* Burger Name */}
                 <div>
@@ -93,7 +93,7 @@ export function HighlightsSection() {
                     {selectedBurger.tagline}
                   </motion.span>
                   <motion.h3
-                    className="font-display text-4xl md:text-5xl lg:text-6xl mt-2 text-gradient-ember"
+                    className="font-display text-3xl md:text-4xl lg:text-5xl mt-2 text-gradient-ember"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
@@ -104,7 +104,7 @@ export function HighlightsSection() {
 
                 {/* Description */}
                 <motion.p
-                  className="font-body text-muted-foreground leading-relaxed text-lg"
+                  className="font-body text-muted-foreground leading-relaxed"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -113,16 +113,16 @@ export function HighlightsSection() {
                 </motion.p>
 
                 {/* Ingredients */}
-                <div className="space-y-4">
-                  <h4 className="font-display text-xl text-foreground">Ingredientes</h4>
-                  <div className="flex flex-wrap gap-3">
+                <div className="space-y-3">
+                  <h4 className="font-display text-lg text-foreground">Ingredientes</h4>
+                  <div className="flex flex-wrap gap-2">
                     {selectedBurger.ingredients.map((ingredient, i) => (
                       <motion.span
                         key={ingredient}
                         initial={{ opacity: 0, scale: 0.8, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ delay: 0.25 + i * 0.08, duration: 0.3 }}
-                        className="px-4 py-2 bg-muted rounded-full text-sm font-body text-foreground border border-border hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
+                        className="px-3 py-1.5 bg-muted rounded-full text-sm font-body text-foreground border border-border hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
                       >
                         {ingredient}
                       </motion.span>
@@ -133,95 +133,78 @@ export function HighlightsSection() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Right Side - Circular Gallery */}
+          {/* Right Side - Gallery with Zoom */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="order-1 lg:order-2 relative"
+            className="order-1 lg:order-2"
           >
-            {/* Main Selected Image */}
-            <div className="relative mx-auto w-full max-w-sm md:max-w-md aspect-square">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedBurger.id}
-                  initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.85, rotate: 3 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/40"
-                  style={{
-                    boxShadow: "0 0 80px hsl(var(--ember) / 0.4), 0 0 120px hsl(var(--ember) / 0.15)",
-                  }}
-                >
-                  <img
-                    src={selectedBurger.image}
-                    alt={selectedBurger.name}
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Vignette */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
+            {/* Main Grid Gallery */}
+            <div className="grid grid-cols-2 gap-4">
+              {highlights.map((burger, index) => {
+                const isSelected = index === selectedIndex;
+
+                return (
+                  <motion.button
+                    key={burger.id}
+                    onClick={() => setSelectedIndex(index)}
+                    className={`relative overflow-hidden rounded-xl transition-all duration-500 ${
+                      isSelected ? "col-span-2 row-span-1" : ""
+                    }`}
                     style={{
-                      background: "radial-gradient(circle, transparent 40%, hsl(var(--background) / 0.4) 100%)",
+                      aspectRatio: isSelected ? "16/9" : "1/1",
                     }}
-                  />
-                </motion.div>
-              </AnimatePresence>
+                    layout
+                    whileHover={{ scale: isSelected ? 1 : 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Image */}
+                    <motion.img
+                      src={burger.image}
+                      alt={burger.name}
+                      className="w-full h-full object-cover"
+                      layout
+                    />
 
-              {/* Thumbnail Navigation Around Circle */}
-              <div className="absolute inset-0 pointer-events-none">
-                {highlights.map((burger, index) => {
-                  const isSelected = index === selectedIndex;
-                  const angle = (index * (360 / highlights.length) - 90) * (Math.PI / 180);
-                  const radius = 56;
-                  const x = 50 + radius * Math.cos(angle);
-                  const y = 50 + radius * Math.sin(angle);
-
-                  return (
-                    <motion.button
-                      key={burger.id}
-                      onClick={() => setSelectedIndex(index)}
-                      className={`absolute pointer-events-auto rounded-full overflow-hidden transition-all duration-300 ${
+                    {/* Overlay */}
+                    <motion.div
+                      className={`absolute inset-0 transition-all duration-300 ${
                         isSelected
-                          ? "border-3 border-primary ring-2 ring-primary/50 scale-110 z-20"
-                          : "border-2 border-border/60 hover:border-primary/60 hover:scale-105"
+                          ? "bg-gradient-to-t from-background/80 via-transparent to-transparent"
+                          : "bg-background/40 hover:bg-background/20"
                       }`}
-                      style={{
-                        left: `${x}%`,
-                        top: `${y}%`,
-                        transform: "translate(-50%, -50%)",
-                        width: isSelected ? "70px" : "56px",
-                        height: isSelected ? "70px" : "56px",
-                      }}
-                      whileHover={{ scale: isSelected ? 1.1 : 1.12 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <img
-                        src={burger.image}
-                        alt={burger.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </div>
+                    />
 
-            {/* Mobile Dot Navigation */}
-            <div className="flex justify-center gap-4 mt-8 lg:hidden">
-              {highlights.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === selectedIndex
-                      ? "bg-primary scale-125"
-                      : "bg-muted hover:bg-primary/50"
-                  }`}
-                  aria-label={`Selecionar ${highlights[index].name}`}
-                />
-              ))}
+                    {/* Selected Glow Border */}
+                    {isSelected && (
+                      <motion.div
+                        layoutId="selectedBorder"
+                        className="absolute inset-0 rounded-xl border-2 border-primary pointer-events-none"
+                        style={{
+                          boxShadow: "0 0 30px hsl(var(--ember) / 0.4), inset 0 0 20px hsl(var(--ember) / 0.1)",
+                        }}
+                      />
+                    )}
+
+                    {/* Name Label */}
+                    <div
+                      className={`absolute bottom-0 left-0 right-0 p-3 transition-all duration-300 ${
+                        isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    >
+                      <p className="font-display text-lg text-foreground">{burger.name}</p>
+                    </div>
+
+                    {/* Unselected number indicator */}
+                    {!isSelected && (
+                      <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-background/80 flex items-center justify-center">
+                        <span className="text-xs font-body text-foreground">{index + 1}</span>
+                      </div>
+                    )}
+                  </motion.button>
+                );
+              })}
             </div>
           </motion.div>
         </div>
