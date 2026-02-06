@@ -50,11 +50,12 @@ export function HighlightsSection() {
   return (
     <section id="destaques" className="section-padding bg-card overflow-hidden" ref={ref}>
       <div className="section-container">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-16"
         >
           <span className="text-primary font-body text-sm tracking-[0.3em] uppercase">
             Nossos Campeões
@@ -64,7 +65,7 @@ export function HighlightsSection() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Side - Ingredients Panel */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -79,8 +80,9 @@ export function HighlightsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 30 }}
                 transition={{ duration: 0.4 }}
-                className="space-y-6"
+                className="space-y-8"
               >
+                {/* Burger Name */}
                 <div>
                   <motion.span
                     className="text-primary text-sm font-body tracking-wider uppercase"
@@ -91,7 +93,7 @@ export function HighlightsSection() {
                     {selectedBurger.tagline}
                   </motion.span>
                   <motion.h3
-                    className="font-display text-3xl md:text-4xl lg:text-5xl mt-2 text-gradient-ember"
+                    className="font-display text-4xl md:text-5xl lg:text-6xl mt-2 text-gradient-ember"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
@@ -100,8 +102,9 @@ export function HighlightsSection() {
                   </motion.h3>
                 </div>
 
+                {/* Description */}
                 <motion.p
-                  className="font-body text-muted-foreground leading-relaxed"
+                  className="font-body text-muted-foreground leading-relaxed text-lg"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -109,17 +112,17 @@ export function HighlightsSection() {
                   {selectedBurger.description}
                 </motion.p>
 
-                {/* Animated Ingredients List */}
-                <div className="space-y-3">
-                  <h4 className="font-display text-lg text-foreground">Ingredientes</h4>
-                  <div className="flex flex-wrap gap-2">
+                {/* Ingredients */}
+                <div className="space-y-4">
+                  <h4 className="font-display text-xl text-foreground">Ingredientes</h4>
+                  <div className="flex flex-wrap gap-3">
                     {selectedBurger.ingredients.map((ingredient, i) => (
                       <motion.span
                         key={ingredient}
                         initial={{ opacity: 0, scale: 0.8, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ delay: 0.25 + i * 0.08, duration: 0.3 }}
-                        className="px-4 py-2 bg-muted rounded-full text-sm font-body text-foreground border border-border hover:border-primary/50 transition-colors duration-300"
+                        className="px-4 py-2 bg-muted rounded-full text-sm font-body text-foreground border border-border hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
                       >
                         {ingredient}
                       </motion.span>
@@ -130,7 +133,7 @@ export function HighlightsSection() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Right Side - Circular Carousel */}
+          {/* Right Side - Circular Gallery */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -138,17 +141,17 @@ export function HighlightsSection() {
             className="order-1 lg:order-2 relative"
           >
             {/* Main Selected Image */}
-            <div className="relative mx-auto w-full max-w-md aspect-square">
+            <div className="relative mx-auto w-full max-w-sm md:max-w-md aspect-square">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedBurger.id}
-                  initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+                  initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
                   animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, rotate: 5 }}
+                  exit={{ opacity: 0, scale: 0.85, rotate: 3 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl"
+                  className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/40"
                   style={{
-                    boxShadow: "0 0 60px hsl(var(--ember) / 0.3), 0 0 100px hsl(var(--ember) / 0.1)",
+                    boxShadow: "0 0 80px hsl(var(--ember) / 0.4), 0 0 120px hsl(var(--ember) / 0.15)",
                   }}
                 >
                   <img
@@ -156,23 +159,22 @@ export function HighlightsSection() {
                     alt={selectedBurger.name}
                     className="w-full h-full object-cover"
                   />
-                  {/* Inner glow */}
+                  {/* Vignette */}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "radial-gradient(circle at 30% 30%, transparent 50%, hsl(var(--background) / 0.3) 100%)",
+                      background: "radial-gradient(circle, transparent 40%, hsl(var(--background) / 0.4) 100%)",
                     }}
                   />
                 </motion.div>
               </AnimatePresence>
 
-              {/* Circular Thumbnail Navigation */}
+              {/* Thumbnail Navigation Around Circle */}
               <div className="absolute inset-0 pointer-events-none">
                 {highlights.map((burger, index) => {
                   const isSelected = index === selectedIndex;
-                  // Position thumbnails in a circle around the main image
                   const angle = (index * (360 / highlights.length) - 90) * (Math.PI / 180);
-                  const radius = 58; // percentage from center
+                  const radius = 56;
                   const x = 50 + radius * Math.cos(angle);
                   const y = 50 + radius * Math.sin(angle);
 
@@ -180,19 +182,19 @@ export function HighlightsSection() {
                     <motion.button
                       key={burger.id}
                       onClick={() => setSelectedIndex(index)}
-                      className={`absolute pointer-events-auto rounded-full overflow-hidden border-2 transition-all duration-300 ${
+                      className={`absolute pointer-events-auto rounded-full overflow-hidden transition-all duration-300 ${
                         isSelected
-                          ? "border-primary scale-110 z-10"
-                          : "border-border/50 hover:border-primary/50 hover:scale-105"
+                          ? "border-3 border-primary ring-2 ring-primary/50 scale-110 z-20"
+                          : "border-2 border-border/60 hover:border-primary/60 hover:scale-105"
                       }`}
                       style={{
                         left: `${x}%`,
                         top: `${y}%`,
                         transform: "translate(-50%, -50%)",
-                        width: isSelected ? "80px" : "60px",
-                        height: isSelected ? "80px" : "60px",
+                        width: isSelected ? "70px" : "56px",
+                        height: isSelected ? "70px" : "56px",
                       }}
-                      whileHover={{ scale: isSelected ? 1.1 : 1.15 }}
+                      whileHover={{ scale: isSelected ? 1.1 : 1.12 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <img
@@ -200,14 +202,6 @@ export function HighlightsSection() {
                         alt={burger.name}
                         className="w-full h-full object-cover"
                       />
-                      {isSelected && (
-                        <motion.div
-                          className="absolute inset-0 border-2 border-primary rounded-full"
-                          initial={{ scale: 1.2, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          layoutId="selected-ring"
-                        />
-                      )}
                     </motion.button>
                   );
                 })}
@@ -215,7 +209,7 @@ export function HighlightsSection() {
             </div>
 
             {/* Mobile Dot Navigation */}
-            <div className="flex justify-center gap-3 mt-8 lg:hidden">
+            <div className="flex justify-center gap-4 mt-8 lg:hidden">
               {highlights.map((_, index) => (
                 <button
                   key={index}
@@ -231,23 +225,6 @@ export function HighlightsSection() {
             </div>
           </motion.div>
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center mt-12 md:mt-16"
-        >
-          <a
-            href="https://www.ifood.com.br"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-body font-medium tracking-wide rounded transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
-          >
-            Pedir agora no iFood
-          </a>
-        </motion.div>
       </div>
     </section>
   );

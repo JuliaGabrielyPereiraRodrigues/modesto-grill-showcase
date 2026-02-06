@@ -16,7 +16,7 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       {/* Background Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40 z-10" />
       
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -27,21 +27,22 @@ export function HeroSection() {
         />
       </div>
 
-      {/* Ember Glow Effect */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20" />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10" />
       
       {/* Content */}
-      <div className="section-container relative z-20 pt-20">
+      <div className="section-container relative z-20">
         <div className="max-w-2xl">
-          {/* Logo Placeholder - Space for Modesto M Logo */}
+          {/* Logo Placeholder */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="w-24 h-24 md:w-32 md:h-32 mb-8 bg-background rounded-lg flex items-center justify-center border border-border overflow-hidden"
+            className="mb-8"
           >
-            {/* Placeholder for the M logo - user will provide the actual logo */}
-            <span className="font-display text-5xl md:text-6xl text-foreground">M</span>
+            <div className="w-20 h-20 md:w-24 md:h-24 bg-background rounded-lg flex items-center justify-center border border-border shadow-lg">
+              <span className="font-display text-4xl md:text-5xl text-foreground">M</span>
+            </div>
           </motion.div>
 
           <motion.span
@@ -57,7 +58,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl leading-tight mb-6"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6"
           >
             O fogo que
             <span className="block text-gradient-ember">transforma</span>
@@ -68,64 +69,60 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-body text-lg text-muted-foreground mb-8 max-w-md"
+            className="font-body text-base md:text-lg text-muted-foreground max-w-md"
           >
             Hambúrgueres feitos na parrilla, com ingredientes selecionados e o sabor único das brasas.
           </motion.p>
         </div>
       </div>
 
-      {/* Scroll Arrow with Grill/Parrilla Effect */}
+      {/* Scroll Arrow - Fixed at bottom, not overlapping content */}
       <motion.button
         onClick={scrollToAbout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 group cursor-pointer"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 group cursor-pointer"
         aria-label="Scroll para Quem Somos"
       >
-        {/* Ember Glow Ring */}
         <div className="relative">
-          {/* Outer glow ring */}
+          {/* Outer glow */}
           <motion.div
-            className="absolute -inset-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{
-              background: "radial-gradient(circle, hsl(var(--ember) / 0.4), transparent 70%)",
-              filter: "blur(8px)",
+              background: "radial-gradient(circle, hsl(var(--ember) / 0.5), transparent 70%)",
+              filter: "blur(10px)",
             }}
           />
           
-          {/* Animated ember particles */}
-          <div className="absolute -inset-6 pointer-events-none">
-            {[...Array(6)].map((_, i) => (
+          {/* Ember particles */}
+          <div className="absolute -inset-4 pointer-events-none">
+            {[...Array(4)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 rounded-full bg-primary"
+                className="absolute w-1.5 h-1.5 rounded-full bg-primary"
                 style={{
-                  left: `${50 + Math.cos((i * Math.PI * 2) / 6) * 30}%`,
-                  top: `${50 + Math.sin((i * Math.PI * 2) / 6) * 30}%`,
+                  left: `${50 + Math.cos((i * Math.PI * 2) / 4) * 24}%`,
+                  top: `${50 + Math.sin((i * Math.PI * 2) / 4) * 24}%`,
                 }}
                 animate={{
-                  opacity: [0.2, 1, 0.2],
-                  scale: [0.5, 1.2, 0.5],
+                  opacity: [0.3, 1, 0.3],
+                  scale: [0.6, 1.2, 0.6],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  delay: i * 0.3,
+                  delay: i * 0.4,
                 }}
               />
             ))}
           </div>
 
-          {/* Main arrow container */}
+          {/* Main circle */}
           <motion.div
-            className="relative w-14 h-14 rounded-full border-2 border-primary/50 flex items-center justify-center group-hover:border-primary transition-colors duration-300"
-            style={{
-              background: "linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--background)) 100%)",
-            }}
+            className="relative w-12 h-12 rounded-full border-2 border-primary/60 flex items-center justify-center group-hover:border-primary transition-colors duration-300 bg-background/80 backdrop-blur-sm"
           >
-            {/* Grill lines effect */}
+            {/* Grill lines */}
             <div className="absolute inset-2 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
               {[...Array(3)].map((_, i) => (
                 <div
@@ -136,33 +133,13 @@ export function HeroSection() {
               ))}
             </div>
 
-            {/* Animated Arrow */}
+            {/* Arrow */}
             <motion.div
-              animate={{ y: [0, 4, 0] }}
+              animate={{ y: [0, 3, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
-              <ChevronDown className="w-6 h-6 text-primary" />
+              <ChevronDown className="w-5 h-5 text-primary" />
             </motion.div>
-          </motion.div>
-
-          {/* Heat waves effect */}
-          <motion.div
-            className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-4 opacity-0 group-hover:opacity-100"
-            animate={{
-              opacity: [0, 0.5, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-            }}
-          >
-            <div 
-              className="w-full h-full"
-              style={{
-                background: "linear-gradient(to top, hsl(var(--ember) / 0.3), transparent)",
-                filter: "blur(4px)",
-              }}
-            />
           </motion.div>
         </div>
       </motion.button>
