@@ -31,14 +31,9 @@ export function Navbar() {
       }`}
     >
       <div className="section-container">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a href="#inicio" className="font-display text-2xl tracking-wide text-gradient-ember">
-            MODESTO
-          </a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+      <div className="flex items-center justify-center h-20">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -53,7 +48,7 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden absolute right-4 p-2 text-foreground"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
