@@ -25,6 +25,51 @@ const sizes = [
   },
 ];
 
+function GrillLines() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-10">
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-full h-1 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+          style={{ top: `${20 + i * 15}%` }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ delay: i * 0.1, duration: 0.4 }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function EmberSparks() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-20">
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-primary"
+          style={{
+            left: `${20 + Math.random() * 60}%`,
+            bottom: "10%",
+          }}
+          animate={{
+            y: [0, -60 - Math.random() * 40],
+            x: [0, (Math.random() - 0.5) * 30],
+            opacity: [0, 1, 0],
+            scale: [0.5, 1, 0.3],
+          }}
+          transition={{
+            duration: 1.5 + Math.random(),
+            repeat: Infinity,
+            delay: i * 0.2,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function SizesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -33,18 +78,22 @@ export function SizesSection() {
   return (
     <section id="tamanhos" className="section-padding" ref={ref}>
       <div className="section-container">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl">
+          <span className="text-primary font-body text-sm tracking-[0.3em] uppercase">
+            Nossos Hambúrgueres
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mt-4">
             Qual o tamanho da sua <span className="text-gradient-ember">fome</span>?
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {sizes.map((size, index) => (
             <motion.div
               key={size.name}
@@ -55,118 +104,67 @@ export function SizesSection() {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Image Container with creative hover */}
-              <div className="relative aspect-square rounded-2xl overflow-hidden">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-card border border-border">
                 {/* Base Image */}
                 <motion.img
                   src={size.image}
                   alt={`Hambúrguer ${size.name}`}
                   className="w-full h-full object-cover"
                   animate={{
-                    scale: hoveredIndex === index ? 1.15 : 1,
+                    scale: hoveredIndex === index ? 1.1 : 1,
+                    filter: hoveredIndex === index ? "brightness(0.4)" : "brightness(1)",
                   }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                 />
 
-                {/* Dark overlay on hover */}
-                <motion.div
-                  className="absolute inset-0 bg-background/70"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
+                {/* Grill lines overlay on hover */}
+                {hoveredIndex === index && <GrillLines />}
 
-                {/* Ember glow effect */}
+                {/* Ember sparks on hover */}
+                {hoveredIndex === index && <EmberSparks />}
+
+                {/* Dark gradient overlay on hover */}
                 <motion.div
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
                   transition={{ duration: 0.3 }}
-                  style={{
-                    background: "radial-gradient(circle at center, hsl(var(--ember) / 0.2), transparent 70%)",
-                  }}
                 />
 
                 {/* Hover Content */}
                 <motion.div
-                  className="absolute inset-0 flex flex-col items-center justify-center p-6"
+                  className="absolute inset-0 flex flex-col items-center justify-center p-6 z-30"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
                     opacity: hoveredIndex === index ? 1 : 0,
                     y: hoveredIndex === index ? 0 : 20,
                   }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
+                  transition={{ duration: 0.4 }}
                 >
-                  {/* Weight with fire effect */}
-                  <motion.div
-                    className="relative"
+                  <motion.span
+                    className="font-display text-5xl md:text-6xl lg:text-7xl text-gradient-ember"
                     animate={{
                       scale: hoveredIndex === index ? [1, 1.05, 1] : 1,
                     }}
                     transition={{ duration: 0.8, repeat: hoveredIndex === index ? Infinity : 0 }}
                   >
-                    <span className="font-display text-6xl md:text-7xl text-gradient-ember">
-                      {size.weight}
-                    </span>
-                    {/* Fire particles */}
-                    {hoveredIndex === index && (
-                      <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                        {[...Array(3)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 rounded-full bg-primary/80"
-                            style={{ left: `${(i - 1) * 15}px` }}
-                            animate={{
-                              y: [0, -20, -30],
-                              opacity: [0.8, 0.4, 0],
-                              scale: [1, 0.6, 0.2],
-                            }}
-                            transition={{
-                              duration: 1,
-                              repeat: Infinity,
-                              delay: i * 0.2,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </motion.div>
-
-                  <motion.p
-                    className="font-body text-muted-foreground text-center mt-4 max-w-[200px]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
+                    {size.weight}
+                  </motion.span>
+                  <p className="font-body text-muted-foreground text-center mt-4 max-w-[180px]">
                     {size.description}
-                  </motion.p>
-
-                  {/* Grill lines decoration */}
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: hoveredIndex === index ? 0.3 : 0 }}
-                  >
-                    {[...Array(4)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-full h-1 bg-primary"
-                        style={{ bottom: `${i * 12}px` }}
-                      />
-                    ))}
-                  </motion.div>
+                  </p>
                 </motion.div>
 
-                {/* Default label (when not hovered) */}
+                {/* Default label */}
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent"
+                  className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background via-background/90 to-transparent"
                   animate={{
                     opacity: hoveredIndex === index ? 0 : 1,
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h3 className="font-display text-2xl text-center">{size.name}</h3>
-                  <p className="text-primary font-body font-medium text-center mt-1">
+                  <h3 className="font-display text-xl md:text-2xl text-center">{size.name}</h3>
+                  <p className="text-primary font-body font-medium text-center text-sm mt-1">
                     {size.weight}
                   </p>
                 </motion.div>

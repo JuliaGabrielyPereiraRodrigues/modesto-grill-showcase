@@ -11,26 +11,29 @@ export function AboutSection() {
   return (
     <section id="quem-somos" className="section-padding bg-card" ref={ref}>
       <div className="section-container">
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl">
-            Tradição e <span className="text-gradient-ember">Paixão</span>
+          <span className="text-primary font-body text-sm tracking-[0.3em] uppercase">
+            Conheça nossa história
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl mt-4">
+            Quem <span className="text-gradient-ember">Somos</span>
           </h2>
         </motion.div>
 
-        {/* Main Content - Images on sides, text in center */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           {/* Left Image */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="lg:col-span-4 hover-zoom rounded-lg overflow-hidden aspect-[4/5] hidden lg:block"
+            className="hover-zoom rounded-lg overflow-hidden aspect-[3/4] hidden lg:block"
           >
             <img
               src={aboutKitchen}
@@ -44,19 +47,22 @@ export function AboutSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-4 text-center flex flex-col justify-center"
+            className="text-center flex flex-col justify-center py-4"
           >
-            <p className="font-body text-muted-foreground leading-relaxed mb-4 text-sm md:text-base">
+            <h3 className="font-display text-2xl md:text-3xl text-foreground mb-6">
+              Tradição e <span className="text-gradient-ember">Paixão</span>
+            </h3>
+            <p className="font-body text-muted-foreground leading-relaxed mb-4">
               Nascemos da vontade de fazer diferente. No Modesto, cada hambúrguer 
               é preparado na parrilla, com o respeito que a carne merece e o sabor 
               que só o fogo proporciona.
             </p>
-            <p className="font-body text-muted-foreground leading-relaxed mb-6 text-sm md:text-base">
+            <p className="font-body text-muted-foreground leading-relaxed mb-6">
               Nossa missão é simples: ingredientes de qualidade, técnica artesanal 
               e a experiência de comer um hambúrguer como ele deve ser — autêntico, 
               suculento e memorável.
             </p>
-            <p className="font-display text-lg md:text-xl text-foreground italic">
+            <p className="font-display text-lg text-foreground italic">
               "Menos é mais quando o fogo faz a magia."
             </p>
           </motion.div>
@@ -66,7 +72,7 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-4 hover-zoom rounded-lg overflow-hidden aspect-[4/5]"
+            className="hover-zoom rounded-lg overflow-hidden aspect-[3/4]"
           >
             <img
               src={aboutAmbiance}
@@ -76,12 +82,12 @@ export function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Mobile - Show kitchen image below */}
+        {/* Mobile - Kitchen image */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="lg:hidden mt-6 hover-zoom rounded-lg overflow-hidden aspect-video"
+          className="lg:hidden mt-8 hover-zoom rounded-lg overflow-hidden aspect-video"
         >
           <img
             src={aboutKitchen}
