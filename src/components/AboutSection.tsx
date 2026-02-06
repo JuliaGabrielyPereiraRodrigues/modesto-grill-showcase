@@ -30,15 +30,16 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           {/* Left Image */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, x: -30, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="hover-zoom rounded-lg overflow-hidden aspect-[3/4] hidden lg:block"
+            className="hover-zoom rounded-lg overflow-hidden aspect-[3/4] hidden lg:block group"
+            whileHover={{ scale: 1.02 }}
           >
             <img
               src={aboutKitchen}
               alt="Nossa cozinha com parrilla"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
           </motion.div>
 
@@ -66,30 +67,32 @@ export function AboutSection() {
 
           {/* Right Image */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, x: 30, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="hover-zoom rounded-lg overflow-hidden aspect-[3/4]"
+            className="hover-zoom rounded-lg overflow-hidden aspect-[3/4] group"
+            whileHover={{ scale: 1.02 }}
           >
             <img
               src={aboutAmbiance}
               alt="Ambiente do restaurante"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
           </motion.div>
         </div>
 
         {/* Mobile - Kitchen image */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="lg:hidden mt-8 hover-zoom rounded-lg overflow-hidden aspect-video"
+          className="lg:hidden mt-8 hover-zoom rounded-lg overflow-hidden aspect-video group"
+          whileHover={{ scale: 1.02 }}
         >
           <img
             src={aboutKitchen}
             alt="Nossa cozinha com parrilla"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
         </motion.div>
       </div>
