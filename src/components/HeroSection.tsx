@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import heroBurger from "@/assets/hero-burger.jpg";
+import logoModesto from "@/assets/logo-modesto.png";
 import { ChevronDown } from "lucide-react";
 
 export function HeroSection() {
@@ -65,16 +66,12 @@ export function HeroSection() {
           />
           
           {/* Logo box */}
-          <div className="relative w-28 h-28 md:w-36 md:h-36 bg-background rounded-xl flex items-center justify-center border border-primary/30 shadow-2xl">
-            {/* Inner subtle glow */}
-            <div 
-              className="absolute inset-0 rounded-xl"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--ember) / 0.1) 0%, transparent 50%)",
-              }}
+          <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src={logoModesto} 
+              alt="Modesto Hamburgueria" 
+              className="w-full h-full object-cover"
             />
-            {/* Placeholder M - user will replace with real logo */}
-            <span className="font-display text-5xl md:text-6xl text-foreground relative z-10">M</span>
           </div>
         </motion.div>
 
